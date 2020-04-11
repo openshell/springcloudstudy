@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3301/leyou?serverTimezone=UTC
+    username: root
+    password: 123456
+  application:
+    name: service-provider
+  main:
+    allow-bean-definition-overriding: true
+server:
+  port: 8081
+mybatis:
+  type-aliases-package: cn.caiqz.pojo
+eureka:
+  client:
+    service-url: # EurekaServer
+      defaultZone: http://127.0.0.1:12580/eureka
