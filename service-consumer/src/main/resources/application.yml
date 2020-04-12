@@ -8,3 +8,9 @@ eureka:
     service-url:
       defaultZone: http://127.0.0.1:12580/eureka
 
+# 定义负载均衡的规则接口
+# 格式是：`{服务名称}.ribbon.NFLoadBalancerRuleClassName`，值就是IRule的实现类。
+#service-provider:
+#  ribbon:
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
