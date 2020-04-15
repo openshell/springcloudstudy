@@ -1,5 +1,6 @@
 package cn.caiqz.service.consumer.controller;
 
+import cn.caiqz.service.consumer.client.UserClient;
 import com.netflix.hystrix.contrib.javanica.annotation.DefaultProperties;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,14 @@ import org.springframework.web.client.RestTemplate;
 @DefaultProperties(defaultFallback = "fallbackMethod")
 public class UserController {
 
-    @Autowired
-    private RestTemplate restTemplate;
+//    @Autowired
+//    private RestTemplate restTemplate;
 
 //    @Autowired
 //    private DiscoveryClient discoveryClient; //注入discoveryClient，通过该客户端获取服务列表
+
+    @Autowired
+    private UserClient userClient;
 
     @GetMapping
 //    @HystrixCommand(fallbackMethod = "fallbackMethod")  单独指定降级方法
@@ -41,12 +45,15 @@ public class UserController {
 //            e.printStackTrace();
 //        }
 
-        if (id == 28) {
-            throw new RuntimeException("请求繁忙");
-        }
+//        if (id == 28) {
+//            throw new RuntimeException("请求繁忙");
+//        }
         //使用ribbon开启负载均衡，直接通过服务名调用服务
-        String baseUrl = "http://service-provider/user/" + id;
-        return this.restTemplate.getForObject(baseUrl, String.class);
+//        String baseUrl = "http://service-provider/user/" + id;
+//        return this.restTemplate.getForObject(baseUrl, String.class);
+
+        //使用feign
+        return userClient.queryById(id).toString();
     }
 
 
